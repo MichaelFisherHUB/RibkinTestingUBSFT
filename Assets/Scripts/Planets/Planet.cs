@@ -9,6 +9,6 @@ public class Planet : SolarSystemBodyBase
 
     private void Update()
     {
-        transform.RotateAround(orbitingAround.transform.position, Vector3.forward, orbitalSpeed * Time.deltaTime);
+        transform.RotateAround(orbitingAround.transform.position, transform.TransformDirection(Vector3.forward), orbitalSpeed * Time.deltaTime);
     }
 }

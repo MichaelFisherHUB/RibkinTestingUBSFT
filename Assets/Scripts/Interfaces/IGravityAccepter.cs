@@ -2,5 +2,6 @@
 
 public interface IGravityAccepter
 {
-    void AcceptGravity(Vector2 gravityVector);
+    void AcceptGravity(Vector2 gravityValue);
+    float GetMass();
 }
