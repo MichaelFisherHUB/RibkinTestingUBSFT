@@ -33,6 +33,14 @@ public class SolarSystemBodyBase : MonoBehaviour, ITakeDamagable, IDeadable, IGr
     private System.Action<int> onHealthValueChange;
     private System.Action onDieAction;
 
+    protected void Awake()
+    {
+        if (!GravityController.gravEmitters.ContainsKey(gameObject))
+        {
+            GravityController.gravEmitters.Add(gameObject, GetComponent<IGravityEmitter>());
+        }
+    }
+
     #region AddListeners
 
     public void AddListeners(System.Action<int> onHealthChange, System.Action onDieHeandler)

@@ -25,6 +25,7 @@ public class GravityEmitter
         }
     }
 
+    [ContextMenu("Set random mass")]
     public void SetRandomMass()
     {
         SetRandomMass(1000f, 10000f);
