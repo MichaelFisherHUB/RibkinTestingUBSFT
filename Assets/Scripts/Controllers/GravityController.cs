@@ -41,10 +41,12 @@ public class GravityController : MonoBehaviour
                 }
             case (Threading.MultyThread):
                 {
+                    //TODO
                     break;
                 }
             case (Threading.JobSystem):
                 {
+                    //TODO
                     break;
                 }
         }
