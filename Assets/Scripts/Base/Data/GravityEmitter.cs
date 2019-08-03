@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
 [System.Serializable]
-public struct GravityEmitter
+public class GravityEmitter
 {
     [SerializeField]
-    private float _mass;
+    private float _mass = 1000;
     public float Mass
     {
         get
@@ -14,6 +14,14 @@ public struct GravityEmitter
         private set
         {
             _mass = value;
+        }
+    }
+
+    public GravityEmitter(int newMass = 0)
+    {
+        if(newMass != 0)
+        {
+            Mass = newMass;
         }
     }
 

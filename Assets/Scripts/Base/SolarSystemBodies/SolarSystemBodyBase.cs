@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SolarSystemBodyBase : MonoBehaviour, ITakeDamagable, IDeadable
+public class SolarSystemBodyBase : MonoBehaviour, ITakeDamagable, IDeadable, IGravityEmitter
 {
     public GravityEmitter gravityEmitter = new GravityEmitter();
 
@@ -32,27 +32,6 @@ public class SolarSystemBodyBase : MonoBehaviour, ITakeDamagable, IDeadable
 
     private System.Action<int> onHealthValueChange;
     private System.Action onDieAction;
-
-    #region Constructors
-
-    public SolarSystemBodyBase(int startHealth = 0)
-    {
-        if (startHealth != 0)
-        {
-            _health = startHealth;
-        }
-    }
-
-    public SolarSystemBodyBase(System.Action<int> onHealthChange, System.Action onDie, int startHealth = 0)
-    {
-        onHealthValueChange += onHealthChange;
-        onDieAction += onDie;
-        if (startHealth != 0)
-        {
-            _health = startHealth;
-        }
-    }
-    #endregion
 
     #region AddListeners
 
@@ -92,6 +71,11 @@ public class SolarSystemBodyBase : MonoBehaviour, ITakeDamagable, IDeadable
         {
             onDieAction.Invoke();
         }
+    }
+
+    public float GetGravityValue()
+    {
+        return gravityEmitter.Mass;
     }
     #endregion
 }
