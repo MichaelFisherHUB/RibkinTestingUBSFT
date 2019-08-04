@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPoolInitiator : MonoBehaviour
+public class ObjectPoolPrewarm : MonoBehaviour
 {
     [SerializeField]    private List<GameObject> objectsInPoolInitiate = new List<GameObject>();
     

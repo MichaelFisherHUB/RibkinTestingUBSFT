@@ -4,6 +4,5 @@ using UnityEngine;
 
 public class Rocket : AmmoBase
 {
-
 	
 }

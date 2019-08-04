@@ -23,7 +23,7 @@ public class GameObjectPool : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void CreatePool(GameObject poolAbleObject, int poolSize = 20)
+    public void CreatePool(GameObject poolAbleObject, int poolSize = 50)
     {
         #region Protectors
 
@@ -48,13 +48,13 @@ public class GameObjectPool : MonoBehaviour
         }
     }
 
-    public GameObject GetGameObjectFromPool(string nameOfPrefab)
+    public GameObject GetGameObjectFromPool(string nameOfPrefab, System.Action<GameObject> beforeActive = null)
     {
         PoolElement foundedPool = pools.Find(x => x.Key == nameOfPrefab);
 
         if (foundedPool != null)
         {
-            return foundedPool.GetFromPool();
+            return foundedPool.GetFromPool(beforeActive);
         }
         else
         {
@@ -63,9 +63,24 @@ public class GameObjectPool : MonoBehaviour
         return null;
     }
 
+    public GameObject GetGameObjectFromPool(GameObject prefab, System.Action<GameObject> beforeActive = null)
+    {
+        PoolElement foundedPool = pools.Find(x => x.reference == prefab);
+
+        if (foundedPool != null)
+        {
+            return foundedPool.GetFromPool(beforeActive);
+        }
+        else
+        {
+            Debug.LogError("Can't fond ObjectPool for this object: " + prefab.name);
+        }
+        return null;
+    }
+
     public void ReturtToPool(GameObject prefab)
     {
-        PoolElement foundedPool = pools.Find(x => x.Key == prefab.name);
+        PoolElement foundedPool = pools.Find(x => prefab.name.StartsWith(x.Key));
 
         if (foundedPool != null)
         {

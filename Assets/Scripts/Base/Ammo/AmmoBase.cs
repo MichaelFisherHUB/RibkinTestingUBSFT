@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(CircleCollider2D))]
 public class AmmoBase : MonoBehaviour, IGravityAccepter , IPoolable
 {
     [SerializeField]
@@ -17,9 +18,11 @@ public class AmmoBase : MonoBehaviour, IGravityAccepter , IPoolable
 
     [SerializeField]    protected bool useGravity = true;
     [SerializeField]    protected int damage = 50;
-    [SerializeField]    protected float acceleration;
+    [SerializeField]    protected float acceleration = 500f;
     [SerializeField]    protected float accelerationTime;
     [SerializeField]    protected float lifetime = 20;
+
+    public float reloadTime = 0.4f;
 
     private float accelerationTimer = 0;
     private float lifetimeTimer = 0;
@@ -37,6 +40,12 @@ public class AmmoBase : MonoBehaviour, IGravityAccepter , IPoolable
     protected void Update()
     {
         TikTokLifetime();
+        RotateToMovement();
+    }
+
+    private void RotateToMovement()
+    {
+        //transform.rotation = Quaternion.
     }
 
     private void TikTokLifetime()
@@ -53,7 +62,7 @@ public class AmmoBase : MonoBehaviour, IGravityAccepter , IPoolable
     {
         if (accelerationTimer < accelerationTime)
         {
-            RigidBodyOfThis.AddRelativeForce(Vector2.up * acceleration * Time.fixedDeltaTime);
+            RigidBodyOfThis.AddRelativeForce(Vector2.up * acceleration);
             accelerationTimer += Time.fixedDeltaTime;
         }
     }
@@ -64,9 +73,9 @@ public class AmmoBase : MonoBehaviour, IGravityAccepter , IPoolable
         if(damageInterface != null)
         {
             damageInterface.TakeDamage(damage);
+            OnHit(collision);
+            PoolDestroy();
         }
-        OnHit(collision);
-        PoolDestroy();
     }
 
     public virtual void OnHit(Collider2D collision)

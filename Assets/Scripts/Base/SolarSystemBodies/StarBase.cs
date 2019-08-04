@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StarBase : MonoBehaviour, IGravityEmitter
+public class StarBase : MonoBehaviour, IGravityEmitter, ITakeDamagable
 {
     public GravityEmitter gravityEmitter = new GravityEmitter();
+
+    [SerializeField] private int totalDamageTaken = 0;
 
     protected void Awake()
     {
@@ -17,5 +19,10 @@ public class StarBase : MonoBehaviour, IGravityEmitter
     public float GetGravityValue()
     {
         return gravityEmitter.Mass;
+    }
+
+    public void TakeDamage(int damageValue)
+    {
+        totalDamageTaken += damageValue;
     }
 }
