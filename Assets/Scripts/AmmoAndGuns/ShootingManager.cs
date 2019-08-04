@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ShootingManager : MonoBehaviour {
     [SerializeField]    private List<AmmoBase> awalibleWeapons = new List<AmmoBase>();
     [SerializeField]    private Transform shootingAimPosition;
+    public static UnityEvent onTimerUpdate = new UnityEvent();
     private List<AmmoDataContainer> ammoTypes = new List<AmmoDataContainer>();
 
     private void Start()
@@ -20,7 +22,11 @@ public class ShootingManager : MonoBehaviour {
     {
         ammoTypes.ForEach(x => 
         {
-            x.UpdateTimer();
+
+            if(x.UpdateTimer() && onTimerUpdate != null)
+            {
+                onTimerUpdate.Invoke();
+            }
         });
     }
 
@@ -70,12 +76,14 @@ public class ShootingManager : MonoBehaviour {
         }
 
         //Update this in Monobehavior's Update
-        public void UpdateTimer()
+        public bool UpdateTimer()
         {
             if(!IsWeaponReady)
             {
                 timer += Time.deltaTime;
+                return true;
             }
+            return false;
         }
     }
     #endregion
