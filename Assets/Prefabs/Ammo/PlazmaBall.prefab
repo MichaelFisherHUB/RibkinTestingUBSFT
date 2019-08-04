@@ -131,7 +131,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -152,7 +152,7 @@ TrailRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: 282a0dc9f521150468055a5e74ff437b, type: 2}
+  - {fileID: 2100000, guid: d18ca71d6255a014c858a71c3f60b60c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -186,10 +186,10 @@ TrailRenderer:
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
-        time: 0.39665082
-        value: 0.23071986
-        inSlope: -1.3283441
-        outSlope: -1.3283441
+        time: 0.72868204
+        value: 0.6334985
+        inSlope: -2.038269
+        outSlope: -2.038269
         tangentMode: 0
       - serializedVersion: 2
         time: 1
@@ -250,10 +250,10 @@ MonoBehaviour:
   _rigid: {fileID: 50630316526361568}
   useGravity: 1
   damage: 2
-  acceleration: 15
+  acceleration: 9.04
   accelerationTime: 0.5
   lifetime: 20
-  reloadTime: 3
+  reloadTime: 1.26
 --- !u!212 &212086506184562420
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -268,7 +268,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5e958476b372b88418efb7d13b9524ed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

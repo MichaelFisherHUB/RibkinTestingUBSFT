@@ -24,5 +24,9 @@ public class StarBase : MonoBehaviour, IGravityEmitter, ITakeDamagable
     public void TakeDamage(int damageValue)
     {
         totalDamageTaken += damageValue;
+        foreach (ParticleSystem parSys in GetComponents<ParticleSystem>())
+        {
+            parSys.Play();
+        }
     }
 }

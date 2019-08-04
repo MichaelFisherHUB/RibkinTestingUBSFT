@@ -6,7 +6,7 @@ public class ObjectPoolPrewarm : MonoBehaviour
 {
     [SerializeField]    private List<GameObject> objectsInPoolInitiate = new List<GameObject>();
     
-    private void Awake()
+    private void Start()
     {
         objectsInPoolInitiate.ForEach(x =>
         {

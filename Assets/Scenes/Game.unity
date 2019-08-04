@@ -294,6 +294,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   awalibleWeapons:
   - {fileID: 114361702958831698, guid: e3ff01d9414af5a4887e3a9f6da5041d, type: 2}
+  - {fileID: 114756277288010448, guid: b1a59e73b65632c409010ae9658ce828, type: 2}
+  - {fileID: 114373336404867714, guid: 05f43beb0ce0946419f9e91448747651, type: 2}
   shootingAimPosition: {fileID: 223269013}
 --- !u!58 &439383961
 CircleCollider2D:
