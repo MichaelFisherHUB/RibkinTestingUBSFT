@@ -15,9 +15,63 @@ public class AmmoBase : MonoBehaviour, IGravityAccepter , IPoolable
         }
     }
 
-    private void Awake()
+    [SerializeField]    protected bool useGravity = true;
+    [SerializeField]    protected int damage = 50;
+    [SerializeField]    protected float acceleration;
+    [SerializeField]    protected float accelerationTime;
+    [SerializeField]    protected float lifetime = 20;
+
+    private float accelerationTimer = 0;
+    private float lifetimeTimer = 0;
+
+    protected void Start()
     {
-        GravityController.gravAccepters.Add(gameObject, GetComponent<IGravityAccepter>());
+        PoolStart();
+    }
+
+    protected void FixedUpdate()
+    {
+        Accelerate();
+    }
+
+    protected void Update()
+    {
+        TikTokLifetime();
+    }
+
+    private void TikTokLifetime()
+    {
+        if (lifetimeTimer > lifetime)
+        {
+            PoolDestroy();
+            return;
+        }
+        lifetimeTimer += Time.deltaTime;
+    }
+
+    private void Accelerate()
+    {
+        if (accelerationTimer < accelerationTime)
+        {
+            RigidBodyOfThis.AddRelativeForce(Vector2.up * acceleration * Time.fixedDeltaTime);
+            accelerationTimer += Time.fixedDeltaTime;
+        }
+    }
+
+    protected void OnTriggerEnter2D(Collider2D collision)
+    {
+        ITakeDamagable damageInterface = collision.gameObject.GetComponent<ITakeDamagable>();
+        if(damageInterface != null)
+        {
+            damageInterface.TakeDamage(damage);
+        }
+        OnHit(collision);
+        PoolDestroy();
+    }
+
+    public virtual void OnHit(Collider2D collision)
+    {
+
     }
 
     #region interfaces
@@ -34,12 +88,22 @@ public class AmmoBase : MonoBehaviour, IGravityAccepter , IPoolable
 
     public void PoolStart()
     {
-        throw new System.NotImplementedException();
+        if (useGravity && !GravityController.gravAccepters.ContainsKey(gameObject))
+        {
+            GravityController.gravAccepters.Add(gameObject, GetComponent<IGravityAccepter>());
+        }
+        accelerationTimer = 0;
+        lifetimeTimer = 0;
     }
 
     public void PoolDestroy()
     {
-        throw new System.NotImplementedException();
+        if(GravityController.gravAccepters.ContainsKey(gameObject))
+        {
+            GravityController.gravAccepters.Remove(gameObject);
+        }
+        GameObjectPool.Instance.ReturtToPool(gameObject);
+        gameObject.SetActive(false);
     }
     #endregion
 }

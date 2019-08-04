@@ -6,7 +6,10 @@ public class GameObjectPool : MonoBehaviour
 {
     public static GameObjectPool Instance { get; private set; }
 
-    private  List<PoolElement> pools = new List<PoolElement>();
+    [SerializeField]    private GameObject poolContainer;
+
+    [SerializeField]
+    private List<PoolElement> pools = new List<PoolElement>();
 
     private void Awake()
     {
@@ -34,32 +37,43 @@ public class GameObjectPool : MonoBehaviour
 
         if (pools.Find(x => x.Key.Equals(poolAbleObject.name)) == null)
         {
-            GameObject tempParrent = new GameObject(string.Format("{0}_Pool", poolAbleObject.name));
-            tempParrent.transform.parent = gameObject.transform;
-            pools.Add(new PoolElement(poolAbleObject.gameObject, poolSize, tempParrent.transform));
+            GameObject tempParrent = Instantiate(poolContainer, gameObject.transform);
+            tempParrent.name = string.Format("{0}_Pool", poolAbleObject.name);
+            PoolElement tmpPoolScript = tempParrent.GetComponent<PoolElement>();
+            if(tmpPoolScript != null)
+            {
+                tmpPoolScript.CreatePool(poolAbleObject.gameObject, poolSize, tempParrent.transform);
+                pools.Add(tmpPoolScript);
+            }
         }
     }
 
     public GameObject GetGameObjectFromPool(string nameOfPrefab)
     {
-        PoolElement foundedPool = pools.Find(x => x.name == nameOfPrefab);
+        PoolElement foundedPool = pools.Find(x => x.Key == nameOfPrefab);
 
         if (foundedPool != null)
         {
             return foundedPool.GetFromPool();
         }
-        Debug.LogError("Can't fond ObjectPool for this object: " + nameOfPrefab);
+        else
+        {
+            Debug.LogError("Can't fond ObjectPool for this object: " + nameOfPrefab);
+        }
         return null;
     }
 
     public void ReturtToPool(GameObject prefab)
     {
-        PoolElement foundedPool = pools.Find(x => x.name == prefab.name);
+        PoolElement foundedPool = pools.Find(x => x.Key == prefab.name);
 
         if (foundedPool != null)
         {
-            prefab.transform.parent = foundedPool.parrent;
+            prefab.transform.SetParent(foundedPool.parrent);
         }
-        Debug.LogError("Can't fond ObjectPool for this object: " + prefab.name);
+        else
+        {
+            Debug.LogError("Can't fond ObjectPool for this object: " + prefab.name);
+        }
     }
 }

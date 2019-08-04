@@ -10,45 +10,49 @@ public class GravityController : MonoBehaviour
     public static Dictionary<GameObject, IGravityAccepter> gravAccepters = new Dictionary<GameObject, IGravityAccepter>();
     private const float G = 6.674f;
 
+    [SerializeField] private bool useGravity = true;
     [SerializeField] private Threading gravityCalculationMode;
 
     private void Update()
     {
-        switch(gravityCalculationMode)
+        if (useGravity)
         {
-            default:
-                {
-                    foreach (GameObject gravAccepterObject in gravAccepters.Keys)
+            switch (gravityCalculationMode)
+            {
+                default:
                     {
-                        foreach (GameObject gravEmmiterObject in gravEmitters.Keys)
+                        foreach (GameObject gravAccepterObject in gravAccepters.Keys)
                         {
-                            if(gravAccepterObject != gravEmmiterObject)
+                            foreach (GameObject gravEmmiterObject in gravEmitters.Keys)
                             {
-                                //Apply Vector2 as gravity force
-                                gravAccepters[gravAccepterObject].AcceptGravity(
-                                    //Calculate vector2 based on all gravity emittors
-                                    SingleThreadCalculation(
-                                        gravEmmiterObject.transform.position.ToVector2(),
-                                        gravEmitters[gravEmmiterObject].GetGravityValue(),
-                                        gravAccepterObject.transform.position.ToVector2(),
-                                        gravAccepters[gravAccepterObject].GetMass()
-                                        )
-                                    );
+                                if (gravAccepterObject != gravEmmiterObject)
+                                {
+                                    //Apply Vector2 as gravity force
+                                    gravAccepters[gravAccepterObject].AcceptGravity(
+                                        //Calculate vector2 based on all gravity emittors
+                                        SingleThreadCalculation(
+                                            gravEmmiterObject.transform.position.ToVector2(),
+                                            gravEmitters[gravEmmiterObject].GetGravityValue(),
+                                            gravAccepterObject.transform.position.ToVector2(),
+                                            gravAccepters[gravAccepterObject].GetMass()
+                                            )
+                                        );
+                                }
                             }
                         }
+                        break;
                     }
-                    break;
-                }
-            case (Threading.MultyThread):
-                {
-                    //TODO
-                    break;
-                }
-            case (Threading.JobSystem):
-                {
-                    //TODO
-                    break;
-                }
+                case (Threading.MultyThread):
+                    {
+                        //TODO
+                        break;
+                    }
+                case (Threading.JobSystem):
+                    {
+                        //TODO
+                        break;
+                    }
+            }
         }
     }
 

@@ -9,7 +9,7 @@ public class PoolElement : MonoBehaviour
     public Transform parrent { get; private set; }
     [SerializeField] private Queue<GameObject> poolElements = new Queue<GameObject>();
 
-    public PoolElement(GameObject prefab, int size, Transform parrent)
+    public void CreatePool(GameObject prefab, int size, Transform parrent)
     {
         this.parrent = parrent;
         Key = prefab.name;
@@ -30,7 +30,7 @@ public class PoolElement : MonoBehaviour
             tmpObject.SetActive(false);
         }
         poolElements.Enqueue(tmpObject);
-        tmpObject.transform.parent = null;
+        tmpObject.transform.SetParent(null);
 
         //"|" - means how many times this gameobjectwas used from objectpool
         tmpObject.name = tmpObject.name + "|";
