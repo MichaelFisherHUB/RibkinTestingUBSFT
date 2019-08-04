@@ -4,7 +4,7 @@
 public class GravityEmitter
 {
     [SerializeField]
-    private float _mass = 1000;
+    private float _mass = 15;
     public float Mass
     {
         get
@@ -28,7 +28,7 @@ public class GravityEmitter
     [ContextMenu("Set random mass")]
     public void SetRandomMass()
     {
-        SetRandomMass(1000f, 10000f);
+        SetRandomMass(5f, 40f);
     }
 
     public void SetRandomMass(float fromValue, float toValue)

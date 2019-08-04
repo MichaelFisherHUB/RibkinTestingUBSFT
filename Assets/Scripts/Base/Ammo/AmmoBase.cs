@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class AmmoBase : MonoBehaviour, IGravityAccepter
+public class AmmoBase : MonoBehaviour, IGravityAccepter , IPoolable
 {
     [SerializeField]
     private Rigidbody2D _rigid;
@@ -30,6 +30,16 @@ public class AmmoBase : MonoBehaviour, IGravityAccepter
     public float GetMass()
     {
         return RigidBodyOfThis.mass;
+    }
+
+    public void PoolStart()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void PoolDestroy()
+    {
+        throw new System.NotImplementedException();
     }
     #endregion
 }

@@ -59,7 +59,7 @@ public class GravityController : MonoBehaviour
 
         Vector2 force = Vector2.zero;
 
-        if (distance != 0f)
+        if (distance > 1f)
         {
             float forceMagnitude = G * (emitterMassValue * accepterMassValue) / Mathf.Pow(distance, 2);
             force = direction.normalized * forceMagnitude;
