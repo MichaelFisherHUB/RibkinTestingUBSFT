@@ -250,10 +250,10 @@ MonoBehaviour:
   _rigid: {fileID: 50630316526361568}
   useGravity: 1
   damage: 2
-  acceleration: 9.04
+  acceleration: 11.63
   accelerationTime: 0.5
   lifetime: 20
-  reloadTime: 1.26
+  reloadTime: 1.5
 --- !u!212 &212086506184562420
 SpriteRenderer:
   m_ObjectHideFlags: 1

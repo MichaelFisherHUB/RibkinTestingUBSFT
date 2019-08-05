@@ -20,14 +20,18 @@ public class ShootingManager : MonoBehaviour {
 
     private void Update()
     {
+        bool needToUpdateSubsOfTimer = false;
         ammoTypes.ForEach(x => 
         {
-
-            if(x.UpdateTimer() && onTimerUpdate != null)
+            if(x.UpdateTimer())
             {
-                onTimerUpdate.Invoke();
+                needToUpdateSubsOfTimer = true;
             }
         });
+        if(needToUpdateSubsOfTimer && onTimerUpdate != null)
+        {
+            onTimerUpdate.Invoke();
+        }
     }
 
     public void Shot()
