@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class StarBase : MonoBehaviour, IGravityEmitter, ITakeDamagable
 {
     public GravityEmitter gravityEmitter = new GravityEmitter();

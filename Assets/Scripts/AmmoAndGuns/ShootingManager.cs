@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class ShootingManager : MonoBehaviour {
-    [SerializeField]    private List<AmmoBase> awalibleWeapons = new List<AmmoBase>();
+    [SerializeField]    public List<AmmoBase> awalibleWeapons = new List<AmmoBase>();
     [SerializeField]    private Transform shootingAimPosition;
     public static UnityEvent onTimerUpdate = new UnityEvent();
     private List<AmmoDataContainer> ammoTypes = new List<AmmoDataContainer>();

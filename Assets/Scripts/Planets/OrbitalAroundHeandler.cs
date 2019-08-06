@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class OrbitalAroundHeandler : MonoBehaviour {
 
-    [SerializeField] private GameObject orbitingAround;
-    [SerializeField] private float orbitalSpeed = 40f;
+    public GameObject orbitingAround;
+    public float orbitalSpeed = 40f;
 
     private void RotateAroundStar()
     {

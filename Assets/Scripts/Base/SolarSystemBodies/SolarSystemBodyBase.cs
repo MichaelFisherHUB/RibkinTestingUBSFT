@@ -34,6 +34,8 @@ public class SolarSystemBodyBase : MonoBehaviour, ITakeDamagable, IDeadable, IGr
     private System.Action<int> onHealthValueChange;
     private System.Action onDieAction;
 
+    [SerializeField] private GameObject onDieParticles;
+
     protected void Awake()
     {
         if (!GravityController.gravEmitters.ContainsKey(gameObject))
@@ -74,12 +76,24 @@ public class SolarSystemBodyBase : MonoBehaviour, ITakeDamagable, IDeadable, IGr
         Health -= damageValue;
     }
 
-    public void Die()
+    public virtual void Die()
     {
+        GameObject tempGO = Instantiate(onDieParticles, transform.position, Quaternion.identity);
+        ParticleSystemTemper tempPS = tempGO.GetComponent<ParticleSystemTemper>();
+        if(tempPS != null)
+        {
+            tempPS.Play();
+        }
+
         if (onDieAction != null)
         {
             onDieAction.Invoke();
         }
+        if (GravityController.gravEmitters.ContainsKey(gameObject))
+        {
+            GravityController.gravEmitters.Remove(gameObject);
+        }
+        Destroy(gameObject);
     }
 
     public float GetGravityValue()

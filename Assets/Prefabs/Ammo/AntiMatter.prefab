@@ -249,10 +249,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigid: {fileID: 50251992818819300}
   useGravity: 1
-  damage: 1
+  damage: 5
   acceleration: 22.47
   accelerationTime: 0.49
   lifetime: 5
+  onDieParticles: {fileID: 1872657166383648, guid: 03497ca048a4a2241ab5469c7f6a4ce1,
+    type: 2}
   reloadTime: 0.4
 --- !u!212 &212693615791739180
 SpriteRenderer:

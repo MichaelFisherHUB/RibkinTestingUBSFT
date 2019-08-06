@@ -21,6 +21,7 @@ public class AmmoBase : MonoBehaviour, IGravityAccepter , IPoolable
     [SerializeField]    protected float acceleration = 500f;
     [SerializeField]    protected float accelerationTime;
     [SerializeField]    protected float lifetime = 20;
+    [SerializeField]    protected GameObject onDieParticles;
 
     public float reloadTime = 0.4f;
 
@@ -80,7 +81,12 @@ public class AmmoBase : MonoBehaviour, IGravityAccepter , IPoolable
 
     public virtual void OnHit(Collider2D collision)
     {
-
+        GameObject tempGO = Instantiate(onDieParticles, transform.position, Quaternion.identity);
+        ParticleSystemTemper tempPS = tempGO.GetComponent<ParticleSystemTemper>();
+        if (tempPS != null)
+        {
+            tempPS.Play();
+        }
     }
 
     #region interfaces
